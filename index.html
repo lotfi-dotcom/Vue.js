@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kleines Vue.js-Projekt</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>{{ message }}</h1>
+    
+    <!-- Zeigt alle Skills an -->
+    <ul>
+      <li v-for="(skill, index) in skills" :key="index">
+        <template v-if="typeof skill === 'string'">
+          {{ skill }}
+        </template>
+        <template v-else-if="Array.isArray(skill)">
+          <ul>
+            <li v-for="(subSkill, subIndex) in skill" :key="subIndex">{{ subSkill }}</li>
+          </ul>
+        </template>
+        <template v-else-if="typeof skill === 'object'">
+          <div>{{ skill.name }}</div>
+       
+           <p v-for="(detail, detailIndex) in skill.details[0]" :key="detailIndex">{{ detail }}</p>
+        
+        </template>
+      </li>
+    </ul>
+    
+    <!-- Zugriff auf spezifische Details -->
+    <p>Chaima, your first detail of "lachen" is: {{ getFirstSkillDetail('lachen') }}</p>
+
+    <button @click="changeMessage">Klicke mich!</button>
+  </div>
+  
+  <!-- Link zur JavaScript-Datei -->
+  <script src="./js/app.js"></script>
+</body>
+</html>
